@@ -1,0 +1,31 @@
+/* mixins */
+
+/* used for social media icons on the right side of the header and footer */
+@mixin social-media{
+	letter-spacing: 0.2rem;
+	font-weight: 500;
+
+	a{
+		transition: all 0.5s;
+		&:hover{text-shadow: 0 0 1px currentColor;}
+	}
+}
+
+/* used for the links in the left side of the header */
+@mixin sweep-hover($direction){
+	&:before {
+		content: "";
+		position: absolute;
+		z-index:-1;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		transform: scaleX(0);
+		background: black;
+		transform-origin: ($direction);
+		transition: all 0.5s;
+	}
+	
+	&:hover:before{transform: scaleX(1);}
+}

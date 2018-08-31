@@ -1,0 +1,244 @@
+/* layout */
+
+header{
+	border-bottom: 1px solid black;
+	font-size: 1.4rem;
+	padding: 1.7rem 0;
+
+	.wrapper{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	
+	/* hover effect for right side is inclued with $social-media */
+	.right{ @include social-media }
+	
+	/* hover effects for left side of header */
+	.left{
+		font-weight: 600;
+		a{
+			transition: all 0.5s;
+			&:nth-of-type(odd),&:nth-of-type(even){
+				&:hover{ 
+					color: white;
+					text-shadow: none;
+				}
+				padding: 0 1rem 0 0;
+				position: relative;
+				border-right: 1px solid black;
+				float: left;
+				@include sweep-hover(right);
+			}
+			&:nth-of-type(even){
+				padding: 0 0 0 1rem;
+				border: none;
+				@include sweep-hover(left);
+			}
+		}
+	}
+}
+
+/* first section */
+.first{
+	transition: all 0.5s;
+	/* 0.1px padding to remove margin collapse */
+	padding: 0.1px;
+	figure{margin: 2rem 0 4rem 0;}
+}
+
+/* second section */
+.second{
+	/* flexbox to remove margin collapse */
+	display: flex;
+	flex-direction: column;
+	p{
+		column-count: 3;
+		column-gap: 2%;
+		text-transform: none;
+		font-size: 1.4rem;
+		margin: 1rem 0 3rem 0;
+		line-height: 2;
+		word-break: break-all;
+		hyphens: auto;
+
+		/* tablet */
+		@media (max-width: 900px){ 
+			column-count: 2;
+			column-gap: 4%;
+		}
+
+		/* mobile */
+		@media (max-width: 625px){
+			column-count: 1;
+		}
+	}
+}
+
+/* third section */
+.third{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 3rem;
+	.gallery{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		/* tablet */
+		@media (max-width: 900px){ flex-wrap: wrap;}
+	}
+	
+	/* desktop, 3 column */
+	.column{
+		width: 32%;
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		transition: all 1s;
+		&:nth-of-type(even){margin: 0 2%;}
+		
+		figure{
+			position: relative;
+			margin: 0 0 6% 0;
+			img{display: block;}
+			&:hover figcaption{ opacity: 1;}
+
+			figcaption{
+				opacity: 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-color: rgba(255, 0, 0, 0.8);
+				color: white;
+				transition: all 0.3s;
+
+				.date{
+					font-family: $noto;
+					text-transform: lowercase;
+				}
+			}
+		}
+		
+		/* tablet, changing from 3 columns to 2 columns */
+		@media (max-width: 900px){
+			figure{margin: 0 0 8% 0;}
+
+			/* the previous 1st and 2nd column grow larger towards the space the 3rd column used to occupy */
+			&:nth-child(-n+2){
+				justify-content: center;
+				width: 48%;
+				&:nth-of-type(even){margin: 0 0 0 4%;}
+			}
+
+			/* .tablet-left and .tablet-right form the left and right side of a new 2x2 element, this element is wrapped towards the bottom of the 1st and 2nd column to acheive a 2 column effect. */
+			&:nth-child(3){
+				flex-direction: row;
+				width: 100%;
+				justify-content: center;
+				.tablet-left, .tablet-right{width: 48%;}
+				.tablet-right{ margin: 0 0 0 4%;}
+			}
+		}
+		
+		/* mobile, changing from 2 columns to 1 column */
+		@media (max-width: 625px){
+			&:nth-child(-n+2){
+				width: 100%;
+				&:nth-of-type(even){margin: 0%;}
+			}
+
+			&:nth-child(3){
+				flex-direction: column;
+				.tablet-left, .tablet-right{
+					width: 100%;
+					margin: 0;
+				}
+			}
+		}
+	}
+}
+
+footer{
+	border-top: 1px solid black;
+	
+	.newsletter{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		justify-content: center;
+		p{
+			font-size: 1.4rem;
+			font-weight: 700;
+			&:last-child{
+				font-weight: 500;
+				font-size: 1.2rem;
+				text-transform: none;
+				padding: 0 0 2rem 0;
+				@media (max-width: 625px){
+					width: 60%;
+				}
+			}
+			&:first-child{ padding: 2rem 0 0 0;}
+		}
+	}
+
+	form{
+		display: flex;
+		flex-direction: row;
+		font-weight: 600;
+		@media (max-width: 625px){flex-direction: column;}
+
+		input[type=email]{
+			text-align: center;
+			font-family: $noto;
+			font-style: italic;
+			border: 1px solid black;
+			padding: 0.8rem 6vw;
+			margin-right: 0.3rem;
+			&:focus::-webkit-input-placeholder { opacity: 0;}
+			@media (max-width: 625px){ margin: 0 0 0.3rem 0;}
+		}
+
+		input[type=submit]{
+			text-align: center;
+			font-family: $rale;
+			text-transform: uppercase;
+			background-color: white;
+			border: 1px solid black;
+			padding: 0.8rem 3vw;
+			transition: all 0.3s;
+			&:hover{
+				background-color: black;
+				color: white;
+				cursor: pointer;
+			}
+		}
+	}
+
+	nav{ width: 100vw;}
+	
+	/* .toes uses floats instead of flexbox to acheieve the same effect as the header */
+	.toes{
+		font-size: 1.4rem;
+		.left, .right{
+			display: inline-block;
+			float: left;
+			padding: 1.7rem 0;
+			font-weight: 700;
+			p{margin: 0;}
+		}
+
+		.right{
+			float: right;
+			@include social-media;
+		}
+	}
+}
